@@ -23,6 +23,7 @@ const Topbar = () => {
         { name: 'Le Concours', href: '#concours' },
         { name: 'Jury', href: '#jury' },
         { name: 'Candidats', href: '#candidats' },
+        { name: '8 Poses', href: '#poses' },
         { name: 'Règlement', href: '#reglement' },
     ];
 
@@ -447,6 +448,49 @@ const Candidats = () => {
     );
 };
 
+const PosesClassic = () => {
+    const poses = [
+        { title: 'Front Double Biceps', img: '/pose1.jpg' },
+        { title: 'Front Lat Spread', img: '/pose2.jpg' },
+        { title: 'Side Chest', img: '/pose3.jpg' },
+        { title: 'Back Double Biceps', img: '/pose4.jpg' },
+        { title: 'Back Lat Spread', img: '/pose5.png' },
+        { title: 'Side Triceps', img: '/pose6.jpg' },
+        { title: 'Abdominal and Thigh', img: '/pose7.jpg' },
+        { title: 'Most Muscular', img: '/pose8.jpg' },
+    ];
+
+    return (
+        <section id="poses" className="py-24 bg-gray-50 relative overflow-hidden">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="text-center mb-16">
+                    <h2 className="font-title text-3xl md:text-5xl font-extrabold text-navy mb-4">Les 8 Poses Classic</h2>
+                    <div className="h-1 w-24 bg-primary mx-auto rounded-full"></div>
+                    <p className="mt-6 text-lg text-gray-600 max-w-2xl mx-auto">
+                        Découvrez les figures techniques essentielles évaluées lors de la compétition pour le jugement de l'esthétique et de la symétrie.
+                    </p>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    {poses.map((pose, index) => (
+                        <div key={index} className="group relative rounded-3xl overflow-hidden shadow-lg border border-gray-200 aspect-[3/4]">
+                            <img
+                                src={pose.img}
+                                alt={pose.title}
+                                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-navy/90 via-navy/30 to-transparent flex flex-col justify-end p-6 transition-opacity duration-300">
+                                <span className="text-gold font-bold text-sm uppercase tracking-wider mb-1">Pose {index + 1}</span>
+                                <h3 className="font-title text-xl font-bold text-white leading-tight">{pose.title}</h3>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </section>
+    );
+};
+
 const Reglement = () => {
     const articles = [
         { title: "ART. 1 – OBJET ET NATURE DE L'ÉVÉNEMENT", content: "Concours gratuit centré exclusivement sur la qualité du posing bodybuilding classic. Aucun critère de masse musculaire ni de poids n'est évalué. Le classement final est déterminé par l'exécution des huit poses obligatoires et la routine libre." },
@@ -537,6 +581,7 @@ function App() {
                 <Concours />
                 <Jury />
                 <Candidats />
+                <PosesClassic />
                 <Reglement />
             </main>
             <Footer />
