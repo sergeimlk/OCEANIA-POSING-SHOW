@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {
     Calendar, MapPin, Ticket, Award, CheckCircle2,
     Menu, X, ChevronDown, ChevronUp, Trophy, Camera, ShieldAlert,
-    Dumbbell, Instagram
+    Dumbbell, Instagram, Printer, Download, FileText
 } from 'lucide-react';
 
 const Topbar = () => {
@@ -29,7 +29,7 @@ const Topbar = () => {
     return (
         <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'py-2' : 'py-4'}`}>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="backdrop-blur-md bg-navy/95 border border-navy/50 shadow-lg rounded-2xl px-6 py-3 flex justify-between items-center transition-all">
+                <div className="backdrop-blur-xl bg-navy/60 border border-white/10 shadow-xl rounded-full px-6 py-3 flex justify-between items-center transition-all">
 
                     <div className="flex-shrink-0 flex items-center">
                         <img src="https://www.oceania-club.fr/wp-content/themes/oceaniaclub/assets/images/oceania-club.png" alt="Océania Club" className="h-8 md:h-10" />
@@ -145,7 +145,7 @@ const Hero = () => {
                     </h1>
 
                     <p className="mt-4 text-xl text-gray-600 mb-10 max-w-2xl mx-auto font-body">
-                        Rejoignez-nous pour la compétition de bodybuilding à Bayonne, détails à l'accueil du club ou voir <span className="inline-flex items-center align-middle font-medium text-navy"><Instagram className="w-5 h-5 mr-1 text-pink-500" />@mily.dna</span>.
+                        Rejoignez-nous pour la compétition de bodybuilding à Bayonne, détails à l'accueil du club ou voir <a href="https://www.instagram.com/mily.dna/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center align-middle font-medium text-navy hover:text-pink-500 transition-colors"><Instagram className="w-5 h-5 mr-1 text-pink-500" />@mily.dna</a>.
                     </p>
 
                     <div className="flex flex-wrap justify-center gap-4 mb-12">
@@ -178,7 +178,7 @@ const Concours = () => {
                     <h2 className="font-title text-3xl md:text-5xl font-extrabold text-navy mb-4">Le Concours</h2>
                     <div className="h-1 w-24 bg-primary mx-auto rounded-full"></div>
                     <p className="mt-6 text-lg text-gray-600 max-w-2xl mx-auto">
-                        Un événement gratuit centré exclusivement sur la qualité du posing bodybuilding classic, sans critère de masse musculaire.
+                        Un événement gratuit centré exclusivement sur la qualité du posing bodybuilding classic.
                     </p>
                 </div>
 
@@ -218,7 +218,7 @@ const Concours = () => {
                         <ul className="space-y-3 text-gray-600">
                             <li className="flex items-start gap-2">
                                 <span className="text-primary font-bold">1.</span>
-                                Présentation libre (2-3 min, musique perso)
+                                Présentation libre ( -1min, musique perso)
                             </li>
                             <li className="flex items-start gap-2">
                                 <span className="text-primary font-bold">2.</span>
@@ -279,12 +279,14 @@ const Concours = () => {
 };
 
 const Jury = () => {
+    const [isGridOpen, setIsGridOpen] = useState(false);
+
     const juryMembers = [
-        { name: 'Alex', role: 'Président du Jury / MC' },
-        { name: 'Walass', role: 'Juge Posing' },
-        { name: 'Houda', role: 'Juge Esthétique' },
-        { name: 'Juanito', role: 'Juge Invité' },
-        { name: 'Manael', role: 'Jury à distance', customImage: '/manael.png' },
+        { name: 'Alex', role: 'Président du Jury / MC', instagram: 'https://www.instagram.com/labar64/', customImage: '/alex.jpg' },
+        { name: 'Walass', role: 'Juge Posing', instagram: 'https://www.instagram.com/walass_ifbb_pro/', customImage: '/walass.jpg' },
+        { name: 'Houda', role: 'Juge Esthétique', instagram: 'https://www.instagram.com/houda_ifbbprowellness/', customImage: '/houda.jpg' },
+        { name: 'Juanito', role: 'Juge Invité', instagram: 'https://www.instagram.com/juanitocoaching/', customImage: '/juanito.jpg' },
+        { name: 'Manael', role: 'Jury à distance', customImage: '/manael.jpg' },
     ];
 
     return (
@@ -296,22 +298,98 @@ const Jury = () => {
                 </div>
 
                 <div className="flex flex-wrap justify-center gap-8">
-                    {juryMembers.map((member, index) => (
-                        <div key={index} className="flex flex-col items-center group">
-                            <div className="relative w-32 h-32 md:w-40 md:h-40 mb-4 rounded-full p-1 bg-gradient-to-tr from-cyan to-primary group-hover:scale-105 transition-transform duration-300">
-                                <img
-                                    src={member.customImage || `https://api.dicebear.com/7.x/avataaars/svg?seed=${member.name}&backgroundColor=f8f9fa`}
-                                    alt={member.name}
-                                    className="w-full h-full rounded-full object-cover border-4 border-white bg-white"
-                                />
-                            </div>
-                            <h3 className="font-title text-xl font-bold text-navy">{member.name}</h3>
-                            <p className="text-sm font-medium text-cyan px-3 py-1 bg-cyan/10 rounded-full mt-2 text-center max-w-[160px] leading-tight">
-                                {member.role}
-                            </p>
-                        </div>
-                    ))}
+                    {juryMembers.map((member, index) => {
+                        const Tag = member.instagram ? 'a' : 'div';
+                        return (
+                            <Tag
+                                key={index}
+                                href={member.instagram}
+                                target={member.instagram ? "_blank" : undefined}
+                                rel={member.instagram ? "noopener noreferrer" : undefined}
+                                className={`flex flex-col items-center group ${member.instagram ? 'cursor-pointer hover:scale-105 transition-transform' : ''}`}
+                            >
+                                <div className="relative w-32 h-32 md:w-40 md:h-40 mb-4 rounded-full p-1 bg-gradient-to-tr from-cyan to-primary group-hover:shadow-[0_0_20px_rgba(34,211,238,0.4)] transition-all duration-300">
+                                    <img
+                                        src={member.customImage || `https://api.dicebear.com/7.x/avataaars/svg?seed=${member.name}&backgroundColor=f8f9fa`}
+                                        alt={member.name}
+                                        className="w-full h-full rounded-full object-cover border-4 border-white bg-white"
+                                    />
+                                </div>
+                                <h3 className="font-title text-xl font-bold text-navy">{member.name}</h3>
+                                {member.instagram && (
+                                    <div className="mt-2 flex items-center gap-1 text-sm font-medium text-pink-500 opacity-80 group-hover:opacity-100 transition-opacity">
+                                        <Instagram className="w-4 h-4" /> Instagram
+                                    </div>
+                                )}
+                                <p className="text-sm font-medium text-cyan px-3 py-1 bg-cyan/10 rounded-full mt-2 text-center max-w-[160px] leading-tight">
+                                    {member.role}
+                                </p>
+                            </Tag>
+                        );
+                    })}
                 </div>
+
+                {/* Bouton Grille d'Évaluation */}
+                <div className="mt-16 flex justify-center relative z-10">
+                    <button
+                        onClick={() => setIsGridOpen(true)}
+                        className="flex items-center gap-3 bg-navy text-white px-8 py-4 rounded-full font-bold shadow-xl hover:-translate-y-1 hover:shadow-2xl hover:bg-navy/90 border border-white/10 transition-all duration-300"
+                    >
+                        <FileText className="w-6 h-6 text-gold" />
+                        Ouvrir la Grille d'Évaluation
+                    </button>
+                </div>
+
+                {/* Modal Full Screen Grille */}
+                {isGridOpen && (
+                    <div className="fixed inset-0 z-[100] bg-navy/90 backdrop-blur-md flex flex-col items-center justify-center p-2 sm:p-6 transition-all duration-300">
+                        <div className="bg-white w-full max-w-6xl h-full max-h-[90vh] rounded-3xl overflow-hidden shadow-2xl flex flex-col relative">
+                            {/* Header Modal */}
+                            <div className="flex flex-col sm:flex-row justify-between items-center bg-gray-50 border-b border-gray-100 px-6 py-4">
+                                <h3 className="font-title text-xl font-bold text-navy flex items-center gap-2 mb-4 sm:mb-0">
+                                    <FileText className="w-6 h-6 text-primary" />
+                                    Grille d'Évaluation Officielle
+                                </h3>
+                                <div className="flex flex-wrap justify-center gap-3">
+                                    <button
+                                        onClick={() => {
+                                            const iframe = document.getElementById('grid-iframe');
+                                            if (iframe) iframe.contentWindow.print();
+                                        }}
+                                        className="flex items-center gap-2 px-4 py-2 bg-primary text-white text-sm font-semibold rounded-xl hover:bg-primary/90 transition-colors"
+                                    >
+                                        <Printer className="w-4 h-4" />
+                                        Imprimer / PDF
+                                    </button>
+                                    <a
+                                        href="/Grille_Evaluation_Jury_Simplifiee.txt"
+                                        download="Grille_Simplifiee_Bayonne_2026.txt"
+                                        className="flex items-center gap-2 px-4 py-2 bg-gray-200 text-navy text-sm font-semibold rounded-xl hover:bg-gray-300 transition-colors"
+                                    >
+                                        <Download className="w-4 h-4" />
+                                        Format Texte (Simplifié)
+                                    </a>
+                                    <button
+                                        onClick={() => setIsGridOpen(false)}
+                                        className="flex items-center justify-center p-2 text-gray-500 hover:text-red-500 hover:bg-red-50 rounded-xl transition-all ml-2"
+                                    >
+                                        <X className="w-6 h-6" />
+                                    </button>
+                                </div>
+                            </div>
+
+                            {/* Contenu Modal (iframe HTML) */}
+                            <div className="flex-grow bg-gray-100 overflow-hidden relative">
+                                <iframe
+                                    id="grid-iframe"
+                                    src="/Grille_Evaluation_Jury_Classic_Posing.html"
+                                    className="w-full h-full border-0 absolute inset-0"
+                                    title="Grille Evaluation Jury"
+                                ></iframe>
+                            </div>
+                        </div>
+                    </div>
+                )}
             </div>
         </section>
     );
@@ -319,11 +397,11 @@ const Jury = () => {
 
 const Candidats = () => {
     const candidates = [
-        { name: 'Artem', num: '1', instagram: 'https://www.instagram.com/artem__badyva/', image: 'https://scontent-mrs2-2.cdninstagram.com/v/t51.2885-19/447752413_341380302320254_1360548250233677060_n.jpg?efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=scontent-mrs2-2.cdninstagram.com&_nc_cat=110&_nc_oc=Q6cZ2QEeh-UjFOhw8A0jwSCi2E4G-BKcs9qls1gOhvzmkDnvaUBaMyxnwYemknsqRcflnTPE_hImbSsh4OXTff7gXlOf&_nc_ohc=81L_Cw6aJq4Q7kNvwH69adl&_nc_gid=JH77pimQbv_8IlrY5a5o7Q&edm=ALGbJPMBAAAA&ccb=7-5&oh=00_Afsxzs7228FERX_2h808he6GFneMfPchGWbnAt5I2ZQZSg&oe=69AA8A33&_nc_sid=7d3ac5' },
-        { name: 'Mily', num: '2', instagram: 'https://www.instagram.com/mily.dna/', image: 'https://scontent-mrs2-1.cdninstagram.com/v/t51.82787-15/642117855_18057575603690129_318270455929079587_n.jpg?efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=scontent-mrs2-1.cdninstagram.com&_nc_cat=105&_nc_oc=Q6cZ2QHdHgKbkLWgaHIOEhyRh5hljoyhY-ZoMdIYUW1D-p4X62A4eIb8SgmScdeIF3yAop_zXkU-rN-7EI45dL_xqKPZ&_nc_ohc=97bFdq5KjrcQ7kNvwG--Bpb&_nc_gid=_EeD8_aWrsX1C9bt2d_o2w&edm=AP4sbd4BAAAA&ccb=7-5&oh=00_AfuAallak9JkEsUvNqQmk9gSuOgyA_ktbSBzX36MEMuUEA&oe=69AA7FEC&_nc_sid=7a9f4b' },
-        { name: 'Sancho', num: '3', instagram: 'https://www.instagram.com/sancho.h64/', image: 'https://scontent-mrs2-3.cdninstagram.com/v/t51.82787-15/610691457_17909950617289576_9077367603330380155_n.jpg?efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDI0LmMyIn0&_nc_ht=scontent-mrs2-3.cdninstagram.com&_nc_cat=104&_nc_oc=Q6cZ2QF7w38na3wJIqLQUjMFofZEvJVsR6P0xyB9XqYN1x5sENgs25YkQQz7R9N8hc7MWMmVk6ZPSEerVlC1zH4X9h12&_nc_ohc=ETpy9qNWryIQ7kNvwEGNwRc&_nc_gid=eDK3JIU86-7kGUnxTIU6Rw&edm=ALGbJPMBAAAA&ccb=7-5&oh=00_AfvtbA00dC-A8tIDd-SV-X1ECQaFoeiSwsRohn3Di5VrhQ&oe=69AA7EDB&_nc_sid=7d3ac5' },
-        { name: 'Illya', num: '4', instagram: 'https://www.instagram.com/illyabadyva/', image: 'https://scontent-mrs2-3.cdninstagram.com/v/t51.82787-15/540009143_18322046566237343_8435123055812871534_n.jpg?efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=scontent-mrs2-3.cdninstagram.com&_nc_cat=111&_nc_oc=Q6cZ2QFym0cRiOsDZs2r3NrXGY02F54Fd7IzTdzVGxaxVzGU7lQxe61PctEkT6kCZzfpug8rvnGPMG10JcwDtKac5CKl&_nc_ohc=m8_ikAFwIVkQ7kNvwG-8ZjW&_nc_gid=3rO7LdOctRoMlS3YeT7-cQ&edm=AP4sbd4BAAAA&ccb=7-5&oh=00_AfsVIZReUQkE2iDiIO3bMJonbxXHZEDAKEDKdePXz5pGSQ&oe=69AA7842&_nc_sid=7a9f4b' },
-        { name: 'Quentin', num: '5', instagram: 'https://www.instagram.com/quentinhoo.64/', image: 'https://scontent-mrs2-1.cdninstagram.com/v/t51.82787-15/562534573_18061321427412054_6667546207548534564_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=109&ig_cache_key=MzE4NDY0OTc2OTc4Njk4NjI0NQ%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjgyOHgxNDcyLnNkci5DMyJ9&_nc_ohc=iVKzNAwbGO8Q7kNvwGPhim9&_nc_oc=AdkqMAnnQjj82svPyk32rGbgl6PLOcojoOfRm1MiXRnkbVX7hOiDbUlba_A4-9PBjVAk1D719ni9T0fmixorI15M&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent-mrs2-1.cdninstagram.com&_nc_gid=UB8NgtJ_TqJKCUK84oetCw&_nc_ss=8&oh=00_Afu7n4AmO3FjFf6WhFJ-_aMi7wOO_40Q6IjtDyu0XgQVvQ&oe=69AA8411' },
+        { name: 'Artem', num: '1', instagram: 'https://www.instagram.com/artem__badyva/', image: '/artem.jpg' },
+        { name: 'Mily', num: '2', instagram: 'https://www.instagram.com/mily.dna/', image: '/mily.jpg' },
+        { name: 'Sancho', num: '3', instagram: 'https://www.instagram.com/sancho.h64/', image: '/sancho.jpg' },
+        { name: 'Illya', num: '4', instagram: 'https://www.instagram.com/illyabadyva/', image: '/illya.png' },
+        { name: 'Quentin', num: '5', instagram: 'https://www.instagram.com/quentinhoo.64/', image: '/quentin.png' },
     ];
 
     return (

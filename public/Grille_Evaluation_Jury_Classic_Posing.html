@@ -1,0 +1,515 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Grille d'Évaluation Jury – Classic Posing Bayonne 2026</title>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap');
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+        font-family: 'Montserrat', sans-serif;
+        background: #ffffff;
+        color: #1a252f;
+        padding: 30px 40px;
+        font-size: 11px;
+    }
+
+    /* HEADER */
+    .header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: #0A192F;
+        color: white;
+        padding: 18px 24px;
+        border-radius: 12px;
+        margin-bottom: 18px;
+    }
+    .header-left .main-title {
+        font-size: 18px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: #F1C40F;
+    }
+    .header-left .sub-title {
+        font-size: 11px;
+        font-weight: 500;
+        color: #a0aec0;
+        margin-top: 3px;
+    }
+    .header-right {
+        text-align: right;
+        font-size: 10px;
+        color: #a0aec0;
+        line-height: 1.8;
+    }
+    .header-right strong { color: #F1C40F; font-size: 12px; }
+
+    /* JURY INFO BOX */
+    .jury-info {
+        display: flex;
+        gap: 12px;
+        margin-bottom: 18px;
+    }
+    .jury-box {
+        flex: 1;
+        background: #f8fafc;
+        border: 1.5px solid #e2e8f0;
+        border-radius: 10px;
+        padding: 10px 14px;
+    }
+    .jury-box label {
+        font-size: 8px;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: #64748b;
+        letter-spacing: 1px;
+        display: block;
+        margin-bottom: 4px;
+    }
+    .jury-box .fill-line {
+        border-bottom: 1.5px solid #0A192F;
+        min-height: 22px;
+        width: 100%;
+        font-weight: 600;
+        font-size: 12px;
+    }
+
+    /* SECTION TITLE */
+    .section-title {
+        background: #0A192F;
+        color: #F1C40F;
+        padding: 8px 16px;
+        border-radius: 8px;
+        font-size: 11px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .badge-weight {
+        background: #F1C40F;
+        color: #0A192F;
+        border-radius: 20px;
+        padding: 2px 10px;
+        font-size: 10px;
+        font-weight: 800;
+    }
+
+    /* TABLE STYLES */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 18px;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    }
+    thead tr th {
+        background: #1e3a5f;
+        color: #ffffff;
+        padding: 9px 10px;
+        text-align: center;
+        font-size: 9px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        border: 1px solid #2d5a8e;
+    }
+    thead tr th.candidate-col { text-align: left; }
+
+    tbody tr td {
+        padding: 8px 10px;
+        border: 1px solid #e2e8f0;
+        text-align: center;
+        vertical-align: middle;
+        font-size: 10px;
+    }
+    tbody tr:nth-child(even) { background: #f8fafc; }
+    tbody tr:nth-child(odd)  { background: #ffffff; }
+    tbody tr:hover           { background: #eef2ff; }
+
+    td.candidate-name {
+        text-align: left;
+        font-weight: 700;
+        color: #1a252f;
+        font-size: 11px;
+        min-width: 100px;
+    }
+    td.dossard {
+        font-weight: 800;
+        color: #0A192F;
+        font-size: 12px;
+        background: #f1f5f9;
+    }
+    td.score-cell {
+        min-width: 35px;
+        font-size: 13px;
+        color: #64748b;
+    }
+    td.total-cell {
+        font-weight: 800;
+        color: #0A192F;
+        font-size: 13px;
+        background: #fef9e7;
+        border-left: 2px solid #F1C40F;
+    }
+    td.note-cell {
+        min-width: 80px;
+        font-size: 9px;
+        color: #94a3b8;
+        font-style: italic;
+    }
+
+    /* LEGEND */
+    .legend {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 18px;
+        flex-wrap: wrap;
+    }
+    .legend-item {
+        background: #f1f5f9;
+        border-radius: 8px;
+        padding: 8px 12px;
+        font-size: 9px;
+        font-weight: 600;
+        color: #334155;
+        border-left: 3px solid #0A192F;
+        flex: 1;
+        min-width: 120px;
+    }
+    .legend-item .legend-score { font-size: 14px; font-weight: 800; color: #0A192F; display: block; margin-bottom: 2px; }
+    .legend-item .legend-label { color: #64748b; font-weight: 500; display: block; }
+
+    /* POSE SCALE REF */
+    .scale-box {
+        background: #0A192F;
+        color: white;
+        border-radius: 10px;
+        padding: 12px 16px;
+        margin-bottom: 18px;
+        display: flex;
+        gap: 6px;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    .scale-box .scale-label { font-size: 9px; font-weight: 700; color: #F1C40F; text-transform: uppercase; margin-right: 8px; white-space: nowrap; }
+    .scale-step {
+        background: #1e3a5f;
+        border-radius: 6px;
+        padding: 4px 8px;
+        text-align: center;
+        font-size: 9px;
+        line-height: 1.4;
+        min-width: 55px;
+    }
+    .scale-step strong { display: block; font-size: 13px; color: #F1C40F; }
+
+    /* ROUTINE TABLE */
+    .routine-criteria { font-size: 9px; color: #64748b; font-style: italic; margin-top: 3px; }
+
+    /* FINAL SCORE */
+    .final-table thead tr th { background: #7d3c98; border-color: #9b59b6; }
+    .final-table td.total-cell { background: #fdf2ff; border-left: 2px solid #9b59b6; }
+
+    /* SIGNATURE BLOCK */
+    .signature-block {
+        margin-top: 20px;
+        border: 1.5px dashed #bdc3c7;
+        border-radius: 10px;
+        padding: 14px 20px;
+        background: #fafafa;
+        display: flex;
+        gap: 30px;
+    }
+    .sig-item { flex: 1; }
+    .sig-item label {
+        display: block;
+        font-size: 8px;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: #64748b;
+        letter-spacing: 1px;
+        margin-bottom: 20px;
+    }
+    .sig-line { border-bottom: 1.5px solid #0A192F; height: 28px; }
+
+    /* FOOTER */
+    .footer {
+        margin-top: 16px;
+        text-align: center;
+        font-size: 8px;
+        color: #94a3b8;
+        font-style: italic;
+    }
+
+    @media print {
+        body { padding: 15px 20px; }
+        .header { padding: 12px 18px; }
+    }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+    <div class="header-left">
+        <div class="main-title">🏆 Grille d'Évaluation — Juge Officiel</div>
+        <div class="sub-title">Classic Posing Bayonne · Édition 2026 · Océania Club</div>
+    </div>
+    <div class="header-right">
+        <strong>15 Avril 2026</strong><br>
+        Océania Club – 85 av. de la Légion Tchèque<br>
+        64100 Bayonne<br>
+        MC : Alex
+    </div>
+</div>
+
+<!-- JURY INFO -->
+<div class="jury-info">
+    <div class="jury-box" style="flex:2">
+        <label>Nom du Juge</label>
+        <div class="fill-line"></div>
+    </div>
+    <div class="jury-box" style="flex:1">
+        <label>Rôle Assigné</label>
+        <div class="fill-line"></div>
+    </div>
+    <div class="jury-box" style="flex:1">
+        <label>Date</label>
+        <div class="fill-line" style="padding-top:4px; font-size:11px;">15 / 04 / 2026</div>
+    </div>
+    <div class="jury-box" style="flex:1">
+        <label>N° Exemplaire</label>
+        <div class="fill-line"></div>
+    </div>
+</div>
+
+<!-- ECHELLE DE NOTATION -->
+<div class="scale-box">
+    <span class="scale-label">Échelle de notation :</span>
+    <div class="scale-step"><strong>1–2</strong>Très insuffisant</div>
+    <div class="scale-step"><strong>3–4</strong>Insuffisant</div>
+    <div class="scale-step"><strong>5–6</strong>Correct</div>
+    <div class="scale-step"><strong>7–8</strong>Bien</div>
+    <div class="scale-step"><strong>9</strong>Très bien</div>
+    <div class="scale-step"><strong>10</strong>Excellent</div>
+</div>
+
+<!-- PARTIE 1 : 8 POSES OBLIGATOIRES (80%) -->
+<div class="section-title">
+    PARTIE 1 — 8 Poses Obligatoires (Technique & Exécution)
+    <span class="badge-weight">80 % de la note finale</span>
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th style="width:5%">#</th>
+            <th class="candidate-col" style="width:18%">Candidat</th>
+            <th style="width:10%">P1<br><span style="font-weight:400;font-size:8px">Front Double Biceps</span></th>
+            <th style="width:10%">P2<br><span style="font-weight:400;font-size:8px">Front Lat Spread</span></th>
+            <th style="width:10%">P3<br><span style="font-weight:400;font-size:8px">Side Chest</span></th>
+            <th style="width:10%">P4<br><span style="font-weight:400;font-size:8px">Back Double Biceps</span></th>
+            <th style="width:10%">P5<br><span style="font-weight:400;font-size:8px">Back Lat Spread</span></th>
+            <th style="width:10%">P6<br><span style="font-weight:400;font-size:8px">Side Triceps</span></th>
+            <th style="width:10%">P7<br><span style="font-weight:400;font-size:8px">Ab & Thigh / Vacuum</span></th>
+            <th style="width:8%">P8<br><span style="font-weight:400;font-size:8px">Pose Favorite</span></th>
+            <th style="width:9%">TOTAL<br><span style="font-weight:400;font-size:8px">/80</span></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td class="dossard">#01</td>
+            <td class="candidate-name">Artem</td>
+            <td class="score-cell">/10</td><td class="score-cell">/10</td><td class="score-cell">/10</td><td class="score-cell">/10</td>
+            <td class="score-cell">/10</td><td class="score-cell">/10</td><td class="score-cell">/10</td><td class="score-cell">/10</td>
+            <td class="total-cell"></td>
+        </tr>
+        <tr>
+            <td class="dossard">#02</td>
+            <td class="candidate-name">Mily</td>
+            <td class="score-cell">/10</td><td class="score-cell">/10</td><td class="score-cell">/10</td><td class="score-cell">/10</td>
+            <td class="score-cell">/10</td><td class="score-cell">/10</td><td class="score-cell">/10</td><td class="score-cell">/10</td>
+            <td class="total-cell"></td>
+        </tr>
+        <tr>
+            <td class="dossard">#03</td>
+            <td class="candidate-name">Sancho</td>
+            <td class="score-cell">/10</td><td class="score-cell">/10</td><td class="score-cell">/10</td><td class="score-cell">/10</td>
+            <td class="score-cell">/10</td><td class="score-cell">/10</td><td class="score-cell">/10</td><td class="score-cell">/10</td>
+            <td class="total-cell"></td>
+        </tr>
+        <tr>
+            <td class="dossard">#04</td>
+            <td class="candidate-name">Vivien</td>
+            <td class="score-cell">/10</td><td class="score-cell">/10</td><td class="score-cell">/10</td><td class="score-cell">/10</td>
+            <td class="score-cell">/10</td><td class="score-cell">/10</td><td class="score-cell">/10</td><td class="score-cell">/10</td>
+            <td class="total-cell"></td>
+        </tr>
+        <tr>
+            <td class="dossard">#05</td>
+            <td class="candidate-name">Quentin</td>
+            <td class="score-cell">/10</td><td class="score-cell">/10</td><td class="score-cell">/10</td><td class="score-cell">/10</td>
+            <td class="score-cell">/10</td><td class="score-cell">/10</td><td class="score-cell">/10</td><td class="score-cell">/10</td>
+            <td class="total-cell"></td>
+        </tr>
+        <tr>
+            <td class="dossard">#06</td>
+            <td class="candidate-name">Bruno</td>
+            <td class="score-cell">/10</td><td class="score-cell">/10</td><td class="score-cell">/10</td><td class="score-cell">/10</td>
+            <td class="score-cell">/10</td><td class="score-cell">/10</td><td class="score-cell">/10</td><td class="score-cell">/10</td>
+            <td class="total-cell"></td>
+        </tr>
+        <tr>
+            <td class="dossard">#07</td>
+            <td class="candidate-name">Illya</td>
+            <td class="score-cell">/10</td><td class="score-cell">/10</td><td class="score-cell">/10</td><td class="score-cell">/10</td>
+            <td class="score-cell">/10</td><td class="score-cell">/10</td><td class="score-cell">/10</td><td class="score-cell">/10</td>
+            <td class="total-cell"></td>
+        </tr>
+        <tr>
+            <td class="dossard">#08</td>
+            <td class="candidate-name">Benoît</td>
+            <td class="score-cell">/10</td><td class="score-cell">/10</td><td class="score-cell">/10</td><td class="score-cell">/10</td>
+            <td class="score-cell">/10</td><td class="score-cell">/10</td><td class="score-cell">/10</td><td class="score-cell">/10</td>
+            <td class="total-cell"></td>
+        </tr>
+    </tbody>
+</table>
+
+<!-- PARTIE 2 : ROUTINE LIBRE (10%) -->
+<div class="section-title">
+    PARTIE 2 — Routine Libre (Artistique & Musicalité)
+    <span class="badge-weight">10 % de la note finale</span>
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th style="width:5%">#</th>
+            <th class="candidate-col" style="width:18%">Candidat</th>
+            <th style="width:16%">Originalité & Créativité<br><span style="font-weight:400;font-size:8px">/10</span></th>
+            <th style="width:16%">Fluidité des Transitions<br><span style="font-weight:400;font-size:8px">/10</span></th>
+            <th style="width:16%">Synchronisation Musicale<br><span style="font-weight:400;font-size:8px">/10</span></th>
+            <th style="width:16%">Impact & Charisme<br><span style="font-weight:400;font-size:8px">/10</span></th>
+            <th style="width:13%">TOTAL<br><span style="font-weight:400;font-size:8px">/40 → x0,25</span></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr><td class="dossard">#01</td><td class="candidate-name">Artem</td><td class="score-cell">/10</td><td class="score-cell">/10</td><td class="score-cell">/10</td><td class="score-cell">/10</td><td class="total-cell"></td></tr>
+        <tr><td class="dossard">#02</td><td class="candidate-name">Mily</td><td class="score-cell">/10</td><td class="score-cell">/10</td><td class="score-cell">/10</td><td class="score-cell">/10</td><td class="total-cell"></td></tr>
+        <tr><td class="dossard">#03</td><td class="candidate-name">Sancho</td><td class="score-cell">/10</td><td class="score-cell">/10</td><td class="score-cell">/10</td><td class="score-cell">/10</td><td class="total-cell"></td></tr>
+        <tr><td class="dossard">#04</td><td class="candidate-name">Vivien</td><td class="score-cell">/10</td><td class="score-cell">/10</td><td class="score-cell">/10</td><td class="score-cell">/10</td><td class="total-cell"></td></tr>
+        <tr><td class="dossard">#05</td><td class="candidate-name">Quentin</td><td class="score-cell">/10</td><td class="score-cell">/10</td><td class="score-cell">/10</td><td class="score-cell">/10</td><td class="total-cell"></td></tr>
+        <tr><td class="dossard">#06</td><td class="candidate-name">Bruno</td><td class="score-cell">/10</td><td class="score-cell">/10</td><td class="score-cell">/10</td><td class="score-cell">/10</td><td class="total-cell"></td></tr>
+        <tr><td class="dossard">#07</td><td class="candidate-name">Illya</td><td class="score-cell">/10</td><td class="score-cell">/10</td><td class="score-cell">/10</td><td class="score-cell">/10</td><td class="total-cell"></td></tr>
+        <tr><td class="dossard">#08</td><td class="candidate-name">Benoît</td><td class="score-cell">/10</td><td class="score-cell">/10</td><td class="score-cell">/10</td><td class="score-cell">/10</td><td class="total-cell"></td></tr>
+    </tbody>
+</table>
+
+<!-- PARTIE 3 : ENDURANCE & PRÉSENCE (10%) -->
+<div class="section-title">
+    PARTIE 3 — Endurance & Présence Scénique
+    <span class="badge-weight">10 % de la note finale</span>
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th style="width:5%">#</th>
+            <th class="candidate-col" style="width:18%">Candidat</th>
+            <th style="width:19%">Maintien de la Contraction<br><span style="font-weight:400;font-size:8px">/10</span></th>
+            <th style="width:19%">Confiance & Regard<br><span style="font-weight:400;font-size:8px">/10</span></th>
+            <th style="width:19%">Absence de Tremblements<br><span style="font-weight:400;font-size:8px">/10</span></th>
+            <th style="width:20%">TOTAL<br><span style="font-weight:400;font-size:8px">/30 → x0,33</span></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr><td class="dossard">#01</td><td class="candidate-name">Artem</td><td class="score-cell">/10</td><td class="score-cell">/10</td><td class="score-cell">/10</td><td class="total-cell"></td></tr>
+        <tr><td class="dossard">#02</td><td class="candidate-name">Mily</td><td class="score-cell">/10</td><td class="score-cell">/10</td><td class="score-cell">/10</td><td class="total-cell"></td></tr>
+        <tr><td class="dossard">#03</td><td class="candidate-name">Sancho</td><td class="score-cell">/10</td><td class="score-cell">/10</td><td class="score-cell">/10</td><td class="total-cell"></td></tr>
+        <tr><td class="dossard">#04</td><td class="candidate-name">Vivien</td><td class="score-cell">/10</td><td class="score-cell">/10</td><td class="score-cell">/10</td><td class="total-cell"></td></tr>
+        <tr><td class="dossard">#05</td><td class="candidate-name">Quentin</td><td class="score-cell">/10</td><td class="score-cell">/10</td><td class="score-cell">/10</td><td class="total-cell"></td></tr>
+        <tr><td class="dossard">#06</td><td class="candidate-name">Bruno</td><td class="score-cell">/10</td><td class="score-cell">/10</td><td class="score-cell">/10</td><td class="total-cell"></td></tr>
+        <tr><td class="dossard">#07</td><td class="candidate-name">Illya</td><td class="score-cell">/10</td><td class="score-cell">/10</td><td class="score-cell">/10</td><td class="total-cell"></td></tr>
+        <tr><td class="dossard">#08</td><td class="candidate-name">Benoît</td><td class="score-cell">/10</td><td class="score-cell">/10</td><td class="score-cell">/10</td><td class="total-cell"></td></tr>
+    </tbody>
+</table>
+
+<!-- CLASSEMENT FINAL -->
+<div class="section-title" style="background:#4a235a;">
+    🏅 CLASSEMENT FINAL CONSOLIDÉ — Ce Juge
+    <span class="badge-weight" style="background:#9b59b6; color:white;">RÉCAPITULATIF</span>
+</div>
+
+<table class="final-table">
+    <thead>
+        <tr>
+            <th style="width:5%">#</th>
+            <th class="candidate-col" style="width:18%">Candidat</th>
+            <th style="width:16%">Score Poses<br><span style="font-weight:400;font-size:8px">80%</span></th>
+            <th style="width:16%">Score Routine<br><span style="font-weight:400;font-size:8px">10%</span></th>
+            <th style="width:16%">Score Présence<br><span style="font-weight:400;font-size:8px">10%</span></th>
+            <th style="width:15%">NOTE FINALE<br><span style="font-weight:400;font-size:8px">/100</span></th>
+            <th style="width:14%">RANG<br><span style="font-weight:400;font-size:8px">Ce Juge</span></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr><td class="dossard">#01</td><td class="candidate-name">Artem</td><td class="score-cell"></td><td class="score-cell"></td><td class="score-cell"></td><td class="total-cell"></td><td class="score-cell"></td></tr>
+        <tr><td class="dossard">#02</td><td class="candidate-name">Mily</td><td class="score-cell"></td><td class="score-cell"></td><td class="score-cell"></td><td class="total-cell"></td><td class="score-cell"></td></tr>
+        <tr><td class="dossard">#03</td><td class="candidate-name">Sancho</td><td class="score-cell"></td><td class="score-cell"></td><td class="score-cell"></td><td class="total-cell"></td><td class="score-cell"></td></tr>
+        <tr><td class="dossard">#04</td><td class="candidate-name">Vivien</td><td class="score-cell"></td><td class="score-cell"></td><td class="score-cell"></td><td class="total-cell"></td><td class="score-cell"></td></tr>
+        <tr><td class="dossard">#05</td><td class="candidate-name">Quentin</td><td class="score-cell"></td><td class="score-cell"></td><td class="score-cell"></td><td class="total-cell"></td><td class="score-cell"></td></tr>
+        <tr><td class="dossard">#06</td><td class="candidate-name">Bruno</td><td class="score-cell"></td><td class="score-cell"></td><td class="score-cell"></td><td class="total-cell"></td><td class="score-cell"></td></tr>
+        <tr><td class="dossard">#07</td><td class="candidate-name">Illya</td><td class="score-cell"></td><td class="score-cell"></td><td class="score-cell"></td><td class="total-cell"></td><td class="score-cell"></td></tr>
+        <tr><td class="dossard">#08</td><td class="candidate-name">Benoît</td><td class="score-cell"></td><td class="score-cell"></td><td class="score-cell"></td><td class="total-cell"></td><td class="score-cell"></td></tr>
+    </tbody>
+</table>
+
+<!-- LÉGENDE -->
+<div class="legend">
+    <div class="legend-item">
+        <span class="legend-score">Rappel</span>
+        <span class="legend-label">En cas d'égalité parfaite : la note de routine libre est déterminante (Art. 6).</span>
+    </div>
+    <div class="legend-item">
+        <span class="legend-score">Confidentialité</span>
+        <span class="legend-label">Cette grille reste confidentielle jusqu'à la délibération finale (16h45).</span>
+    </div>
+    <div class="legend-item">
+        <span class="legend-score">Remise</span>
+        <span class="legend-label">Remettre cette grille complète et signée au Directeur de compétition à 16h45.</span>
+    </div>
+</div>
+
+<!-- SIGNATURE -->
+<div class="signature-block">
+    <div class="sig-item" style="flex:3">
+        <label>Signature du Juge (précédée de « Lu, rempli et certifié sincère »)</label>
+        <div class="sig-line"></div>
+    </div>
+    <div class="sig-item" style="flex:1">
+        <label>Heure de remise</label>
+        <div class="sig-line"></div>
+    </div>
+    <div class="sig-item" style="flex:1">
+        <label>Visa Directeur de Compétition</label>
+        <div class="sig-line"></div>
+    </div>
+</div>
+
+<div class="footer">
+    Grille officielle – Classic Posing Bayonne · 15 Avril 2026 · Océania Club · v1.0 · Document confidentiel réservé aux membres du jury
+</div>
+
+</body>
+</html>
